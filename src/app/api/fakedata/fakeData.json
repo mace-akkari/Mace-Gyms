@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "bodyPart": "Chest",
+    "workout": "Chest Press"
+  },
+  {
+    "id": 2,
+    "bodyPart": "Chest",
+    "workout": "Incline Chest Press"
+  },
+  {
+    "id": 3,
+    "bodyPart": "Chest",
+    "workout": "Chest Fly"
+  },
+  {
+    "id": 4,
+    "bodyPart": "Chest",
+    "workout": "Push Up"
+  },
+  {
+    "id": 5,
+    "bodyPart": "Chest",
+    "workout": "Cable Cross Over"
+  },
+  {
+    "id": 6,
+    "bodyPart": "Chest",
+    "workout": "Dumbbell Pullover"
+  }
+]
