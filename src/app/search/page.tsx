@@ -1,17 +1,35 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent } from "react";
+// colour scheme
+// create an api endpoint for the search. use wagr: https://wger.de/api/v2/schema/ui#/language/language_list
+//fetch data from api -> map over result,
+// bicep or biceps / no abs but Abdominales - create an alias?
 
-interface Workout {
+import { useState, useEffect, useRef, FormEvent } from "react";
+interface WorkoutData {
   id: number;
+  base_id: number;
+  name: string;
+  category: string;
+  image: string;
+  image_thumbnail: string;
+}
+interface TransformedWorkout extends Omit<WorkoutData, "base_id" | "category"> {
   bodyPart: string;
   workout: string;
+  imageUrl: string;
+  index: number;
+}
+
+interface Workout {
+  data: WorkoutData;
+  value: string;
 }
 
 export default function Search() {
   const [outputValue, setOutputValue] = useState("");
   const [data, setData] = useState<Workout[]>([]);
-  const [searchResults, setSearchResults] = useState<Workout[]>([]);
+  const [searchResults, setSearchResults] = useState<TransformedWorkout[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -26,12 +44,32 @@ export default function Search() {
     if (inputRef.current) {
       const searchValue = inputRef.current.value.toLowerCase();
       setOutputValue(searchValue);
-      const results = data.filter(
-        (workout) =>
-          workout.workout.toLowerCase().includes(searchValue) ||
-          workout.bodyPart.toLowerCase().includes(searchValue)
-      );
-      setSearchResults(results);
+
+      fetch(
+        `/api/fakedata/exercise/search?language=english&term=${encodeURIComponent(
+          searchValue
+        )}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && data.suggestions) {
+            setSearchResults(
+              data.suggestions.map((item: Workout) => ({
+                id: item.data.id,
+                bodyPart: item.data.category,
+                workout: item.value,
+                imageUrl: `https://wger.de${item.data.image}`,
+              }))
+            );
+          } else {
+            setSearchResults([]);
+            console.log("No results found", data);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setSearchResults([]);
+        });
     }
   };
 
@@ -49,14 +87,19 @@ export default function Search() {
           Search
         </button>
       </form>
-      <output>{outputValue}</output>
       {searchResults.length > 0 ? (
         <div>
-          <h3>Search Results</h3>
+          <p className="text-2xl font-bold">Search Results</p>
           {searchResults.map((result) => (
-            <div key={result.id}>
+            <div key={`${result.id}-${result.index}`}>
               <p>Body Part: {result.bodyPart}</p>
               <p>Workout: {result.workout}</p>
+              <img
+                src={result.imageUrl}
+                alt={`Image of ${result.workout}`}
+                className="w-20 h-20"
+              />
+              <p></p>
             </div>
           ))}
         </div>
@@ -66,7 +109,3 @@ export default function Search() {
     </>
   );
 }
-
-//  colour scheme
-// create an api endpoint for the search. use wagr: https://wger.de/api/v2/schema/ui#/language/language_list
-//fetch data from api -> map over result,
