@@ -58,7 +58,9 @@ export default function Search() {
                 id: item.data.id,
                 bodyPart: item.data.category,
                 workout: item.value,
-                imageUrl: `https://wger.de${item.data.image}`,
+                imageUrl: item.data.image
+                  ? `https://wger.de${item.data.image}`
+                  : "/images/placeholder.png",
               }))
             );
           } else {
