@@ -1,10 +1,5 @@
 "use client";
 
-// colour scheme
-// create an api endpoint for the search. use wagr: https://wger.de/api/v2/schema/ui#/language/language_list
-//fetch data from api -> map over result,
-// bicep or biceps / no abs but Abdominales - create an alias?
-
 import { useState, useEffect, useRef, FormEvent } from "react";
 interface WorkoutData {
   id: number;
@@ -93,15 +88,21 @@ export default function Search() {
         <div>
           <p className="text-2xl font-bold">Search Results</p>
           {searchResults.map((result) => (
-            <div key={`${result.id}-${result.index}`}>
-              <p>Body Part: {result.bodyPart}</p>
-              <p>Workout: {result.workout}</p>
-              <img
-                src={result.imageUrl}
-                alt={`Image of ${result.workout}`}
-                className="w-20 h-20"
-              />
-              <p></p>
+            <div className="flex flex-wrap gap-4">
+              <div
+                className="border-2 border-black p-4 w-64 inline-block mb-4"
+                key={`${result.id}-${result.index}`}
+              >
+                <img
+                  src={result.imageUrl}
+                  alt={`Image of ${result.workout}`}
+                  className="w-20 h-20 mb-4"
+                />
+                <div>
+                  <p>Body Part: {result.bodyPart}</p>
+                  <p>Workout: {result.workout}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>

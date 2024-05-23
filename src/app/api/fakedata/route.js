@@ -1,19 +1,10 @@
-// import fakeData from "./fakeData.json";
-
-// export async function GET() {
-//   return Response.json(fakeData);
-// }
-
-// next step, make the language option via a dropdown menu --> language=english
-// base URL should be https://wger.de/api/v2/
-
 const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
 // proxy endpoint to Wger API for exercise searches in English.
 router.get("/exercise/search", async (req, res) => {
-  const { term } = req.query; // Extract the search term from the query parameters
+  const { term } = req.query; // extract the search term from the query parameters
   const apiUrl = `https://wger.de/api/v2/exercise/search/?language=english&term=${encodeURIComponent(
     term
   )}`;

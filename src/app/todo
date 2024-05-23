@@ -1,0 +1,33 @@
+## Search - page.tsx
+
+// create an api endpoint for the search. use wagr: https://wger.de/api/v2/schema/ui#/language/language_list
+//fetch data from api -> map over result,
+// bicep or biceps / no abs but Abdominales - create an alias?
+
+---
+
+## api - route.js
+
+// next step, make the language option via a dropdown menu --> language=english
+// base URL should be https://wger.de/api/v2/
+
+---
+
+## global.css - apply more custom styling
+
+currently on have <h1><h2><h3>
+// custom styling for colour scheme
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
+
+---
