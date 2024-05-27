@@ -1,25 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, FormEvent } from "react";
-interface WorkoutData {
-  id: number;
-  base_id: number;
-  name: string;
-  category: string;
-  image: string;
-  image_thumbnail: string;
-}
-interface TransformedWorkout extends Omit<WorkoutData, "base_id" | "category"> {
-  bodyPart: string;
-  workout: string;
-  imageUrl: string;
-  index: number;
-}
-
-interface Workout {
-  data: WorkoutData;
-  value: string;
-}
+import { TransformedWorkout, Workout } from "./interfaces";
+import fetchData from "./fetchData";
 
 export default function Search() {
   const [outputValue, setOutputValue] = useState("");
@@ -39,34 +22,7 @@ export default function Search() {
     if (inputRef.current) {
       const searchValue = inputRef.current.value.toLowerCase();
       setOutputValue(searchValue);
-
-      fetch(
-        `/api/fakedata/exercise/search?language=english&term=${encodeURIComponent(
-          searchValue
-        )}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && data.suggestions) {
-            setSearchResults(
-              data.suggestions.map((item: Workout) => ({
-                id: item.data.id,
-                bodyPart: item.data.category,
-                workout: item.value,
-                imageUrl: item.data.image
-                  ? `https://wger.de${item.data.image}`
-                  : "/images/placeholder.png",
-              }))
-            );
-          } else {
-            setSearchResults([]);
-            console.log("No results found", data);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-          setSearchResults([]);
-        });
+      fetchData(searchValue, setSearchResults);
     }
   };
 
