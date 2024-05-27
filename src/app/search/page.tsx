@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { TransformedWorkout, Workout } from "./interfaces";
 import fetchData from "./fetchData";
 import SearchBar from "./search";
