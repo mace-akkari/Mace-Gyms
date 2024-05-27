@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { TransformedWorkout, Workout } from "./interfaces";
 import fetchData from "./fetchData";
 import SearchBar from "./search";
@@ -9,7 +9,6 @@ export default function Search() {
   const [outputValue, setOutputValue] = useState("");
   const [data, setData] = useState<Workout[]>([]);
   const [searchResults, setSearchResults] = useState<TransformedWorkout[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/fakedata")
@@ -18,13 +17,9 @@ export default function Search() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const submitHandler = (e: FormEvent) => {
-    e.preventDefault();
-    if (inputRef.current) {
-      const searchValue = inputRef.current.value.toLowerCase();
-      setOutputValue(searchValue);
-      fetchData(searchValue, setSearchResults);
-    }
+  const submitHandler = (searchValue: string) => {
+    setOutputValue(searchValue.toLowerCase());
+    fetchData(searchValue.toLowerCase(), setSearchResults);
   };
 
   return (
@@ -34,7 +29,6 @@ export default function Search() {
         submitHandler={submitHandler}
         searchResults={searchResults}
         outputValue={outputValue}
-        inputRef={inputRef}
       />
     </>
   );

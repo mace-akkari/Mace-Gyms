@@ -1,22 +1,29 @@
-// search.tsx
+import { useRef, FormEvent } from "react";
 import { TransformedWorkout } from "./interfaces";
 
 interface SearchProps {
-  submitHandler: (e: React.FormEvent) => void;
+  submitHandler: (searchValue: string) => void;
   searchResults: TransformedWorkout[];
   outputValue: string;
-  inputRef: React.RefObject<HTMLInputElement>;
 }
 
-const SearchBar: React.FC<SearchProps> = ({
+export default function SearchBar({
   submitHandler,
   searchResults,
   outputValue,
-  inputRef,
-}) => {
+}: SearchProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (inputRef.current) {
+      submitHandler(inputRef.current.value);
+    }
+  };
+
   return (
     <>
-      <form className="flex items-center" onSubmit={submitHandler}>
+      <form className="flex items-center" onSubmit={handleSubmit}>
         <input
           type="search"
           placeholder="Search Exercise"
@@ -54,6 +61,4 @@ const SearchBar: React.FC<SearchProps> = ({
       )}
     </>
   );
-};
-
-export default SearchBar;
+}
