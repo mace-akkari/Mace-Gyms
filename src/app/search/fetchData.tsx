@@ -1,10 +1,11 @@
-import { Workout } from "./interfaces";
+import { TransformedWorkout, Workout } from "./interfaces";
 
-export default function fetchData(searchValue: string, setSearchResults: any) {
+export default function fetchData(
+  searchValue: string,
+  setSearchResults: (searchReslt: TransformedWorkout[]) => void
+) {
   fetch(
-    `/api/fakedata/exercise/search?language=english&term=${encodeURIComponent(
-      searchValue
-    )}`
+    `/api/fakedata/?language=english&term=${encodeURIComponent(searchValue)}`
   )
     .then((response) => response.json())
     .then((data) => {
