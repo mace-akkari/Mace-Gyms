@@ -1,5 +1,7 @@
 # MACE GYMS
 
+This will be the gym app idea that started off my coding journey. It is built using Next.js and Tailwind CSS, while being hosted on Vercel.
+
 ### Version 1 images of my page design: ![ Mace Gyms wire frames](/public/images/figma.1.png "Mace Gyms page design")
 
 ![ Mace Gyms wire frames](/public/images/figma.2.png "Mace Gyms page design")
