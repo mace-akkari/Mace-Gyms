@@ -1,5 +1,11 @@
 # MACE GYMS
 
+### Version 1 images of my page design: ![ Mace Gyms wire frames](/public/images/figma.1.png "Mace Gyms page design")
+
+![ Mace Gyms wire frames](/public/images/figma.2.png "Mace Gyms page design")
+
+### Version 1 user flow diagram: ![ Mace Gyms wire frames](/public/images/userFlow.png "Mace Gyms page design")
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
