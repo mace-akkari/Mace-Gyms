@@ -4,15 +4,14 @@ export default function fetchData(
   searchValue: string,
   setSearchResults: (searchReslt: TransformedWorkout[]) => void
 ) {
-  fetch(
-    `/api/fakedata/?language=english&term=${encodeURIComponent(searchValue)}`
-  )
+  fetch(`/api/search/?language=english&term=${encodeURIComponent(searchValue)}`)
     .then((response) => response.json())
     .then((data) => {
       if (data && data.suggestions) {
         setSearchResults(
           data.suggestions.map((item: Workout) => ({
-            id: item.data.id,
+            id: item.data.base_id,
+            name: item.data.name,
             bodyPart: item.data.category,
             workout: item.value,
             imageUrl: item.data.image
