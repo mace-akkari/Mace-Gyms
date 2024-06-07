@@ -12,6 +12,7 @@ export interface TransformedWorkout
   workout: string;
   imageUrl: string;
   index: number;
+  name: string;
 }
 
 export interface Workout {
