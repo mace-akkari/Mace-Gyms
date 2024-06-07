@@ -1,5 +1,6 @@
 import { useRef, FormEvent } from "react";
 import { TransformedWorkout } from "./interfaces";
+import Link from "next/link";
 
 interface SearchProps {
   submitHandler: (searchValue: string) => void;
@@ -42,17 +43,19 @@ export default function SearchBar({
               className="flex flex-wrap gap-4"
               key={`${result.id}-${result.index}`}
             >
-              <div className="border-2 border-black p-4 w-64 inline-block mb-4">
-                <img
-                  src={result.imageUrl}
-                  alt={`Image of ${result.workout}`}
-                  className="w-20 h-20 mb-4"
-                />
-                <div>
-                  <p>Body Part: {result.bodyPart}</p>
-                  <p>Workout: {result.workout}</p>
+              <Link href={`/details/${result.id}`}>
+                <div className="border-2 border-black p-4 w-64 inline-block mb-4">
+                  <img
+                    src={result.imageUrl}
+                    alt={`Image of ${result.workout}`}
+                    className="w-20 h-20 mb-4"
+                  />
+                  <div>
+                    <p>Body Part: {result.bodyPart}</p>
+                    <p>Workout: {result.workout}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
