@@ -1,20 +1,13 @@
 //here first req to get id - once it's here get muscles endpoint
+// zod
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const term = searchParams.get("term");
+type RouteArgs = { params: { id: string } };
 
-  const apiUrl = `https://wger.de/api/v2/exercise/search/?language=english&term=${encodeURIComponent(
-    term ?? "Back"
-  )}`;
+export async function GET(request: Request, { params }: RouteArgs) {
+  const id = params.id;
+
   try {
-    const res = await fetch(apiUrl, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await res.json();
+    const data = await exercise(id);
 
     return Response.json(data);
   } catch (error) {
@@ -24,6 +17,17 @@ export async function GET(request: Request) {
 }
 
 //for exercie - taking id
+
+async function exercise(id: string) {
+  const apiUrl = `https://wger.de/api/v2/exercise-base/${id}`;
+  const res = await fetch(apiUrl, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return await res.json();
+}
 
 async function muscles(front: boolean) {
   const apiUrl = `https://wger.de/api/v2/muscle/?is_front=${
@@ -37,3 +41,5 @@ async function muscles(front: boolean) {
 
   return await res.json();
 }
+
+// map the id to the muscle
