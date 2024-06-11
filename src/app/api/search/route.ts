@@ -21,11 +21,3 @@ export async function GET(request: Request) {
     return Response.json({ error }, { status: 500 });
   }
 }
-
-// const res = await fetch(apiUrl, {
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-
-// const data = await res.json();
