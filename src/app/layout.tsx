@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import "./globals.css";
+import StopWatch from "./stopwatch/page";
 
 export const metadata: Metadata = {
   title: "Mace Gyms",
@@ -23,6 +24,9 @@ export default function RootLayout({
             </li>
             <li>
               <Link href="/search">Search</Link>
+            </li>
+            <li>
+              <Link href="/stopwatch">Stopwatch</Link>
             </li>
           </menu>
         </nav>
